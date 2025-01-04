@@ -33,7 +33,7 @@ jobs:
       - name: Remove previous Docker image
         run: |
           docker image prune -f --filter "until=24h"
-          docker rmi arrokoth7412/express_test:latest || true
+          docker rmi arrokoth7412/express_test:latest
 
       #   - name: Create .env file on the server
       #     run: |
