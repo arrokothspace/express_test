@@ -15,7 +15,7 @@ jobs:
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build Docker Image
-        run: docker build -t arrokoth7412/express_test .
+        run: docker build -t arrokoth7412/express_test  .
 
       - name: Publish Image to Docker Hub
         run: docker push arrokoth7412/express_test:latest
@@ -27,22 +27,17 @@ jobs:
       - name: Pull image from Docker Hub
         run: docker pull arrokoth7412/express_test:latest
 
-      #   - name: Delete old container if exists
-      #     run: |
-      #       if [ "$(docker ps -aq -f name=express-container)" ]; then
-      #         docker rm -f express-container
-      #       fi
+      - name: Delete old container
+        run: docker rm -f express-container
 
-      #   - name: Remove previous Docker image if exists
-      #     run: |
-      #       docker image prune -f --filter "until=24h"
-      #       if [ "$(docker images -q arrokoth7412/express_test:latest)" ]; then
-      #         docker rmi arrokoth7412/express_test:latest
-      #       fi
+      - name: Remove previous Docker image
+        run: |
+          docker image prune -f --filter "until=24h"
+          docker rmi arrokoth7412/express_test:latest || true
 
       #   - name: Create .env file on the server
       #     run: |
-      #       echo "PORT=${{ secrets.PORT }}" > .env
+      #       echo -e "PORT=${{ secrets.PORT }}" > .env
 
       - name: Run Docker Container
-        run: docker run --restart=always -d -p 3000:3000 --name express-container arrokoth7412/express_test
+        run: docker run --restart=always --env-file .env -d -p 3000:3000 --name express-container arrokoth7412/express_test
