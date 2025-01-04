@@ -27,18 +27,18 @@ jobs:
       - name: Pull image from Docker Hub
         run: docker pull arrokoth7412/express_test:latest
 
-      - name: Delete old container if exists
-        run: |
-          if [ "$(docker ps -aq -f name=express-container)" ]; then
-            docker rm -f express-container
-          fi
+      #   - name: Delete old container if exists
+      #     run: |
+      #       if [ "$(docker ps -aq -f name=express-container)" ]; then
+      #         docker rm -f express-container
+      #       fi
 
-      - name: Remove previous Docker image if exists
-        run: |
-          docker image prune -f --filter "until=24h"
-          if [ "$(docker images -q arrokoth7412/express_test:latest)" ]; then
-            docker rmi arrokoth7412/express_test:latest
-          fi
+      #   - name: Remove previous Docker image if exists
+      #     run: |
+      #       docker image prune -f --filter "until=24h"
+      #       if [ "$(docker images -q arrokoth7412/express_test:latest)" ]; then
+      #         docker rmi arrokoth7412/express_test:latest
+      #       fi
 
       - name: Create .env file with PowerShell
         shell: pwsh
