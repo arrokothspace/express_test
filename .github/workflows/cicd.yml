@@ -40,10 +40,9 @@ jobs:
       #         docker rmi arrokoth7412/express_test:latest
       #       fi
 
-      - name: Create .env file with PowerShell
-        shell: pwsh
+      - name: Create .env file on the server
         run: |
-          "PORT=${{ secrets.PORT }}" | Out-File -FilePath .env -Encoding UTF8
+          echo "PORT=${{ secrets.PORT }}" > .env
 
       - name: Run Docker Container
         run: docker run --restart=always --env-file .env -d -p 3000:3000 --name express-container arrokoth7412/express_test
