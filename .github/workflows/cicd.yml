@@ -36,7 +36,10 @@ jobs:
       #       docker rmi arrokoth7412/express_test:latest || true
 
       - name: Create .env file on the server
-        run: echo "PORT=${{ secrets.PORT }}" >> .env
+        run: |
+          cat <<EOF > .env
+          PORT=${{ secrets.PORT }}
+          EOF
 
       - name: Run Docker Container
         run: docker run --restart=always --env-file .env -d -p 3000:3000 --name express-container arrokoth7412/express_test
