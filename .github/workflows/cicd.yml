@@ -30,10 +30,10 @@ jobs:
       #   - name: Delete old container
       #     run: docker rm -f express-container
 
-      - name: Remove previous Docker image
-        run: |
-          docker image prune -f --filter "until=24h"
-          docker rmi arrokoth7412/express_test:latest || true
+      #   - name: Remove previous Docker image
+      #     run: |
+      #       docker image prune -f --filter "until=24h"
+      #       docker rmi arrokoth7412/express_test:latest || true
 
       - name: Create .env file on the server
         run: |
