@@ -28,7 +28,9 @@ jobs:
         run: docker pull arrokoth7412/express_test:latest
 
       - name: Delete old container
-        run: docker rm -f express-container
+        run: if [ $(docker ps -q -f name=express-container) ]; then
+          docker rm -f express-container
+          fi
 
       - name: Remove previous Docker image
         run: |
