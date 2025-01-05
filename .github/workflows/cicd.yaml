@@ -40,4 +40,4 @@ jobs:
           echo "PORT=${{ secrets.PORT }}" >> .env
 
       - name: Run Docker Container
-        run: docker run --restart=always --env-file .env -d -p 3000:3000 --name express-container arrokoth7412/express_test
+        run: docker run --restart=always --env-file .env -d -p 3000:3000 --name ${{ env.PRODUCTION_NAME }}-container arrokoth7412/express_test
