@@ -35,9 +35,9 @@ jobs:
           docker image prune -f --filter "until=24h"
           docker rmi arrokoth7412/express_test:latest
 
-      #   - name: Create .env file on the server
-      #     run: |
-      #       echo -e "PORT=${{ secrets.PORT }}" > .env
+      - name: Create .env file on the server
+        run: |
+          echo -e "PORT=${{ secrets.PORT }}" > .env
 
       - name: Run Docker Container
         run: docker run --restart=always -d -p 3000:3000 --name express-container arrokoth7412/express_test
